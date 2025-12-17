@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: smartapi
+Version: 0.1.0
+Summary: Opinionated FastAPI CLI for scalable Python APIs
+Author-email: Arthur Rezende <arezendealmeida@gmail.com>
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: typer
+Dynamic: license-file

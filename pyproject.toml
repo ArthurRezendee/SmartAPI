@@ -1,0 +1,13 @@
+[project]
+name = "smartapi"
+version = "0.1.0"
+description = "Opinionated FastAPI CLI for scalable Python APIs"
+authors = [{ name="Arthur Rezende", email="arezendealmeida@gmail.com" }]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "typer",
+]
+
+[project.scripts]
+smartapi = "smartapi.cli:main"
