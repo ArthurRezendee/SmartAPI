@@ -10,7 +10,7 @@ from smartapi.utils.templates import render_template
 app = typer.Typer()
 
 
-@app.command("make:schema")
+@app.command()
 def make_schema(module: str, name: str | None = None):
     """
     Cria um schema Pydantic dentro de um módulo existente

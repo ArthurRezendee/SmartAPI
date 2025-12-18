@@ -10,7 +10,7 @@ from smartapi.utils.templates import render_template
 app = typer.Typer()
 
 
-@app.command("make:model")
+@app.command()
 def make_model(module: str, name: str):
     """
     Cria um model SQLAlchemy dentro de um módulo existente

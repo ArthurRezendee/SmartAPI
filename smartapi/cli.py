@@ -26,11 +26,11 @@ app.add_typer(make_router.app, name="make:router")
 app.add_typer(make_crud.app, name="make:crud")
 app.add_typer(make_job.app, name="make:job")
 
-app.add_typer(db_migrate.app, name="db")
-app.add_typer(db_rollback.app, name="db")
+app.add_typer(db_migrate.app, name="db:migrate")
+app.add_typer(db_rollback.app, name="db:rollback")
 
 app.add_typer(app_run.app, name="app")
-app.add_typer(init.app, name="init")
+app.command("init")(init.init_project)
 
 def main():
     app()

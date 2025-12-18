@@ -11,7 +11,7 @@ app = typer.Typer()
 BASE_MODULES = Path("app/modules")
 
 
-@app.command("make:module")
+@app.command()
 def make_module(module: str):
     """
     Cria um módulo com:

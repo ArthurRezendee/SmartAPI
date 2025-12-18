@@ -11,7 +11,7 @@ app = typer.Typer()
 BASE_MODULES = Path("app/modules")
 
 
-@app.command("make:crud")
+@app.command()
 def make_crud(
     module: str,
     entity: str,

@@ -7,7 +7,7 @@ import typer
 app = typer.Typer()
 
 
-@app.command("db:migrate")
+@app.command()
 def db_migrate():
     """
     Executa alembic upgrade head

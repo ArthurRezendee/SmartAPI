@@ -8,7 +8,6 @@ from smartapi.utils.templates import render_template
 app = typer.Typer()
 
 
-@app.command("init")
 def init_project():
     """
     Inicializa um projeto SmartAPI na pasta atual

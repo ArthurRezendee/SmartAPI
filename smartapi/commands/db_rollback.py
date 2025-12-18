@@ -7,7 +7,7 @@ import typer
 app = typer.Typer()
 
 
-@app.command("db:rollback")
+@app.command()
 def db_rollback(steps: int = 1):
     """
     Executa rollback de migrations (default: 1)

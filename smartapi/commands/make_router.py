@@ -10,7 +10,7 @@ from smartapi.utils.templates import render_template
 app = typer.Typer()
 
 
-@app.command("make:router")
+@app.command()
 def make_router(module: str):
     """
     Cria o router.py dentro de um módulo existente

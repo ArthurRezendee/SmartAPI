@@ -10,7 +10,7 @@ from smartapi.utils.templates import render_template
 app = typer.Typer()
 
 
-@app.command("make:controller")
+@app.command()
 def make_controller(module: str, name: str | None = None):
     """
     Cria um controller dentro de um módulo existente

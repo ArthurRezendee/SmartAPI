@@ -10,7 +10,7 @@ from smartapi.utils.templates import render_template
 app = typer.Typer()
 
 
-@app.command("make:job")
+@app.command()
 def make_job(group: str, name: str):
     """
     Cria um job Celery padronizado e registra no app/jobs/__init__.py

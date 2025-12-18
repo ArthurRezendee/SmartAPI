@@ -10,7 +10,7 @@ from smartapi.utils.templates import render_template
 app = typer.Typer()
 
 
-@app.command("make:service")
+@app.command()
 def make_service(module: str, name: str | None = None):
     """
     Cria um service dentro de um módulo existente
