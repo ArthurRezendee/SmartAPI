@@ -4,7 +4,7 @@ from pathlib import Path
 import typer
 
 from smartapi.utils.naming import to_snake
-from smartapi.utils.project import get_modules_path
+from smartapi.utils.project import modules_path
 from smartapi.utils.templates import render_template
 
 app = typer.Typer()
@@ -19,7 +19,7 @@ def make_model(module: str, name: str):
     module_snake = to_snake(module)
     model_snake = to_snake(name)
 
-    modules_base: Path = get_modules_path()  # normalmente app/modules
+    modules_base: Path = modules_path()  # normalmente app/modules
     module_path = modules_base / module_snake
 
     if not module_path.exists():

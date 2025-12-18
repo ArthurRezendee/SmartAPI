@@ -1,8 +1,10 @@
+from __future__ import annotations
+
 import typer
 from pathlib import Path
 
 from smartapi.utils.naming import to_snake
-from smartapi.utils.templates import render
+from smartapi.utils.templates import render_template
 
 app = typer.Typer()
 
@@ -34,63 +36,109 @@ def make_crud(
 
     router_path = module_path / "router.py"
 
-    # model
+    # -------------------------
+    # MODEL
+    # -------------------------
     if not from_model and not model_path.exists():
-        model_path.write_text(render(
-            "crud/model.py.tpl",
-            entity=entity,
-            entity_snake=entity_snake
-        ))
+        render_template(
+            template="crud/model.py.tpl",
+            target=model_path,
+            context={
+                "entity": entity,
+                "entity_snake": entity_snake,
+            },
+        )
 
-    # schema
-    schema_path.write_text(render(
-        "crud/schema.py.tpl",
-        entity=entity
-    ))
+    # -------------------------
+    # SCHEMA
+    # -------------------------
+    render_template(
+        template="crud/schema.py.tpl",
+        target=schema_path,
+        context={
+            "entity": entity,
+        },
+    )
 
-    # service
-    service_path.write_text(render(
-        "crud/service.py.tpl",
-        entity=entity,
-        entity_snake=entity_snake,
-        module_snake=module_snake
-    ))
+    # -------------------------
+    # SERVICE
+    # -------------------------
+    render_template(
+        template="crud/service.py.tpl",
+        target=service_path,
+        context={
+            "entity": entity,
+            "entity_snake": entity_snake,
+            "module_snake": module_snake,
+        },
+    )
 
-    # controller base
+    # -------------------------
+    # CONTROLLER BASE
+    # -------------------------
     if not controller_path.exists():
-        controller_path.write_text(render(
-            "crud/controller.base.py.tpl",
-            controller_name=controller_name,
-            entity=entity,
-            entity_snake=entity_snake,
-            module_snake=module_snake
-        ))
+        render_template(
+            template="crud/controller.base.py.tpl",
+            target=controller_path,
+            context={
+                "controller_name": controller_name,
+                "entity": entity,
+                "entity_snake": entity_snake,
+                "module_snake": module_snake,
+            },
+        )
 
-    # controller methods
+    # -------------------------
+    # CONTROLLER METHODS (append)
+    # -------------------------
     with open(controller_path, "a", encoding="utf-8") as f:
-        f.write(render(
-            "crud/controller.methods.py.tpl",
-            entity_snake=entity_snake
-        ))
+        from smartapi.utils.templates import render_template as _rt  # só pra gerar string
+
+        tmp = Path("/tmp/_controller_methods.py")
+
+        render_template(
+            template="crud/controller.methods.py.tpl",
+            target=tmp,
+            context={
+                "entity_snake": entity_snake,
+            },
+        )
+        f.write(tmp.read_text())
 
         if not readonly:
-            f.write(render(
-                "crud/controller.methods.delete.py.tpl",
-                entity_snake=entity_snake
-            ))
+            render_template(
+                template="crud/controller.methods.delete.py.tpl",
+                target=tmp,
+                context={
+                    "entity_snake": entity_snake,
+                },
+            )
+            f.write(tmp.read_text())
 
-    # router
+    # -------------------------
+    # ROUTER (append)
+    # -------------------------
     with open(router_path, "a", encoding="utf-8") as f:
-        f.write(render(
-            "crud/router.routes.py.tpl",
-            entity=entity,
-            entity_snake=entity_snake
-        ))
+        tmp = Path("/tmp/_router_routes.py")
+
+        render_template(
+            template="crud/router.routes.py.tpl",
+            target=tmp,
+            context={
+                "entity": entity,
+                "entity_snake": entity_snake,
+            },
+        )
+        f.write(tmp.read_text())
 
         if not readonly and not no_delete:
-            f.write(render(
-                "crud/router.routes.delete.py.tpl",
-                entity_snake=entity_snake
-            ))
+            render_template(
+                template="crud/router.routes.delete.py.tpl",
+                target=tmp,
+                context={
+                    "entity_snake": entity_snake,
+                },
+            )
+            f.write(tmp.read_text())
 
     typer.echo(f"✅ CRUD '{entity}' criado no módulo '{module}'")

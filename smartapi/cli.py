@@ -9,8 +9,10 @@ from smartapi.commands import (
     make_router,
     make_crud,
     make_job,
-    database,
     app_run,
+    db_migrate,
+    db_rollback,
+    init
 )
 
 app = typer.Typer(help="SmartAPI – Opinionated FastAPI CLI")
@@ -24,10 +26,11 @@ app.add_typer(make_router.app, name="make:router")
 app.add_typer(make_crud.app, name="make:crud")
 app.add_typer(make_job.app, name="make:job")
 
-app.add_typer(database.app, name="db")
-app.add_typer(database.app, name="make")
+app.add_typer(db_migrate.app, name="db")
+app.add_typer(db_rollback.app, name="db")
 
 app.add_typer(app_run.app, name="app")
+app.add_typer(init.app, name="init")
 
 def main():
     app()

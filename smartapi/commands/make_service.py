@@ -4,7 +4,7 @@ from pathlib import Path
 import typer
 
 from smartapi.utils.naming import to_snake
-from smartapi.utils.project import get_modules_path
+from smartapi.utils.project import modules_path
 from smartapi.utils.templates import render_template
 
 app = typer.Typer()
@@ -20,7 +20,7 @@ def make_service(module: str, name: str | None = None):
     service_name = name or module
     service_snake = to_snake(service_name)
 
-    modules_base: Path = get_modules_path()
+    modules_base: Path = modules_path()
     module_path = modules_base / module_snake
 
     if not module_path.exists():

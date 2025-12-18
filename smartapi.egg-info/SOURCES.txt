@@ -20,6 +20,7 @@ smartapi/commands/make_job.py
 smartapi/commands/make_migration.py
 smartapi/commands/make_model.py
 smartapi/commands/make_module.py
+smartapi/commands/make_router.py
 smartapi/commands/make_schema.py
 smartapi/commands/make_service.py
 smartapi/utils/naming.py

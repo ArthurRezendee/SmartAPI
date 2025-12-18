@@ -4,7 +4,7 @@ from pathlib import Path
 import typer
 
 from smartapi.utils.naming import to_snake
-from smartapi.utils.project import get_jobs_path
+from smartapi.utils.project import jobs_path
 from smartapi.utils.templates import render_template
 
 app = typer.Typer()
@@ -19,7 +19,7 @@ def make_job(group: str, name: str):
     group_snake = to_snake(group)
     job_snake = to_snake(name)
 
-    jobs_base: Path = get_jobs_path()  # normalmente: Path("app/jobs")
+    jobs_base: Path = jobs_path()  # normalmente: Path("app/jobs")
     jobs_base.mkdir(parents=True, exist_ok=True)
 
     # registry principal (app/jobs/__init__.py)
