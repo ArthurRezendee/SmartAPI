@@ -18,3 +18,6 @@ pydantic-settings
 # Utils
 python-dateutil
 tenacity
+
+#SmartAPI
+smartapi
