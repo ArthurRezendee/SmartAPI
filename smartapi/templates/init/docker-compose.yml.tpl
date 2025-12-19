@@ -2,7 +2,9 @@ version: "3.9"
 
 services:
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: .docker/api.Dockerfile
     env_file:
       - .env
     volumes:
@@ -14,7 +16,9 @@ services:
       - redis
 
   worker:
-    build: .
+    build:
+      context: .
+      dockerfile: .docker/api.Dockerfile
     command: celery -A app.worker worker -l info
     env_file:
       - .env

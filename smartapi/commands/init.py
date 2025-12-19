@@ -8,6 +8,7 @@ from smartapi.utils.templates import render_template
 app = typer.Typer()
 
 
+@app.command()
 def init_project():
     """
     Inicializa um projeto SmartAPI na pasta atual
@@ -31,12 +32,12 @@ def init_project():
     # --------------------
     # Estrutura base
     # --------------------
-    (root / "app/core").mkdir(parents=True)
-    (root / "app/modules").mkdir(parents=True)
-    (root / "app/jobs").mkdir(parents=True)
-    (root / "app/shared").mkdir(parents=True)
-    (root / "migrations/versions").mkdir(parents=True)
-    (root / "docker").mkdir(parents=True)
+    (root / "app/core/database").mkdir(parents=True, exist_ok=True)
+    (root / "app/modules").mkdir(parents=True, exist_ok=True)
+    (root / "app/jobs").mkdir(parents=True, exist_ok=True)
+    (root / "app/shared").mkdir(parents=True, exist_ok=True)
+    (root / "migrations/versions").mkdir(parents=True, exist_ok=True)
+    (root / ".docker").mkdir(parents=True, exist_ok=True)
 
     # --------------------
     # __init__.py
@@ -44,6 +45,7 @@ def init_project():
     for p in [
         "app",
         "app/core",
+        "app/core/database",
         "app/modules",
         "app/jobs",
         "app/shared",
@@ -51,25 +53,120 @@ def init_project():
         (root / p / "__init__.py").touch()
 
     # --------------------
-    # Templates principais
+    # Core / App
     # --------------------
-    render_template("init/main.py.tpl", root / "app/main.py", {})
-    render_template("init/config.py.tpl", root / "app/core/config.py", {})
-    render_template("init/database.py.tpl", root / "app/core/database.py", {})
-    render_template("init/security.py.tpl", root / "app/core/security.py", {})
-    render_template("init/celery_app.py.tpl", root / "app/core/celery_app.py", {})
-    render_template("init/controller.py.tpl", root / "app/shared/controller.py", {})
+    render_template(
+        template="init/main.py.tpl",
+        target=root / "app/main.py",
+        context={},
+    )
 
-    render_template("init/docker-compose.yml.tpl", root / "docker-compose.yml", {})
-    render_template("init/api.Dockerfile.tpl", root / "docker/api.Dockerfile", {})
-    render_template("init/worker.Dockerfile.tpl", root / "docker/worker.Dockerfile", {})
+    render_template(
+        template="init/worker.py.tpl",
+        target=root / "app/worker.py",
+        context={},
+    )
 
-    render_template("init/.env.tpl", root / ".env", {})
-    render_template("init/.env.example.tpl", root / ".env.example", {})
-    render_template("init/gitignore.tpl", root / ".gitignore", {})
-    render_template("init/alembic.ini.tpl", root / "alembic.ini", {})
-    render_template("init/README.md.tpl", root / "README.md", {})
+    render_template(
+        template="init/config.py.tpl",
+        target=root / "app/core/config.py",
+        context={},
+    )
 
+    render_template(
+        template="init/security.py.tpl",
+        target=root / "app/core/security.py",
+        context={},
+    )
+
+    render_template(
+        template="init/celery_app.py.tpl",
+        target=root / "app/core/celery_app.py",
+        context={},
+    )
+
+    render_template(
+        template="init/controller.py.tpl",
+        target=root / "app/shared/controller.py",
+        context={},
+    )
+
+    # --------------------
+    # Database (PASTA)
+    # --------------------
+    render_template(
+        template="init/async_db.py.tpl",
+        target=root / "app/core/database/async_db.py",
+        context={},
+    )
+
+    render_template(
+        template="init/sync_db.py.tpl",
+        target=root / "app/core/database/sync_db.py",
+        context={},
+    )
+
+    render_template(
+        template="init/models.py.tpl",
+        target=root / "app/core/database/models.py",
+        context={},
+    )
+
+    # --------------------
+    # Docker
+    # --------------------
+    render_template(
+        template="init/docker-compose.yml.tpl",
+        target=root / "docker-compose.yml",
+        context={},
+    )
+
+    render_template(
+        template="init/api.Dockerfile.tpl",
+        target=root / ".docker/api.Dockerfile",
+        context={},
+    )
+
+    # --------------------
+    # Configs raiz
+    # --------------------
+    render_template(
+        template="init/.env.tpl",
+        target=root / ".env",
+        context={},
+    )
+    
+    render_template(
+        template="init/requirements.txt.tpl",
+        target=root / "requirements.txt",
+        context={},
+    )
+
+    render_template(
+        template="init/.env.example.tpl",
+        target=root / ".env.example",
+        context={},
+    )
+
+    render_template(
+        template="init/gitignore.tpl",
+        target=root / ".gitignore",
+        context={},
+    )
+
+    render_template(
+        template="init/alembic.ini.tpl",
+        target=root / "alembic.ini",
+        context={},
+    )
+
+    render_template(
+        template="init/README.md.tpl",
+        target=root / "README.md",
+        context={},
+    )
+
+    typer.echo("")
     typer.echo("✅ Projeto SmartAPI inicializado com sucesso!")
     typer.echo("")
     typer.echo("👉 Próximos passos:")

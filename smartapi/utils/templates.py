@@ -1,7 +1,5 @@
 from __future__ import annotations
-
 from pathlib import Path
-from string import Template
 
 
 def render_template(
@@ -10,11 +8,6 @@ def render_template(
     target: Path,
     context: dict,
 ):
-    """
-    Renderiza um template .tpl substituindo variáveis
-    e grava no caminho target
-    """
-
     templates_base = Path(__file__).resolve().parent.parent / "templates"
     template_path = templates_base / template
 
@@ -23,7 +16,12 @@ def render_template(
 
     content = template_path.read_text(encoding="utf-8")
 
-    rendered = Template(content).safe_substitute(context)
+    try:
+        rendered = content.format(**context)
+    except KeyError as e:
+        raise KeyError(
+            f"Variável {e} não encontrada no contexto do template {template}"
+        )
 
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(rendered, encoding="utf-8")
