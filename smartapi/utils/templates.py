@@ -16,12 +16,15 @@ def render_template(
 
     content = template_path.read_text(encoding="utf-8")
 
-    try:
-        rendered = content.format(**context)
-    except KeyError as e:
-        raise KeyError(
-            f"Variável {e} não encontrada no contexto do template {template}"
-        )
+    if context:
+        try:
+            rendered = content.format(**context)
+        except KeyError as e:
+            raise KeyError(
+                f"Variável {e} não encontrada no contexto do template {template}"
+            )
+    else:
+        rendered = content
 
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(rendered, encoding="utf-8")
