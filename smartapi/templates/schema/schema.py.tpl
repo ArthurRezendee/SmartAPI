@@ -1,19 +1,19 @@
 from pydantic import BaseModel
 
 
-class {{ schema }}Base(BaseModel):
+class {schema}Base(BaseModel):
     pass
 
 
-class {{ schema }}Create({{ schema }}Base):
+class {schema}Create({schema}Base):
     pass
 
 
-class {{ schema }}Update({{ schema }}Base):
+class {schema}Update({schema}Base):
     pass
 
 
-class {{ schema }}Response({{ schema }}Base):
+class {schema}Response({schema}Base):
     id: int
 
     class Config:
