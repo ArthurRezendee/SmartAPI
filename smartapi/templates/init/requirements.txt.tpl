@@ -20,4 +20,4 @@ python-dateutil
 tenacity
 
 #SmartAPI
-smartapi
+smartapi-cli

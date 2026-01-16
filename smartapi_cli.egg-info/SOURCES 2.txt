@@ -3,12 +3,6 @@ README.md
 pyproject.toml
 smartapi/__init__.py
 smartapi/cli.py
-smartapi.egg-info/PKG-INFO
-smartapi.egg-info/SOURCES.txt
-smartapi.egg-info/dependency_links.txt
-smartapi.egg-info/entry_points.txt
-smartapi.egg-info/requires.txt
-smartapi.egg-info/top_level.txt
 smartapi/commands/__init__.py
 smartapi/commands/app_run.py
 smartapi/commands/db_migrate.py
@@ -26,3 +20,9 @@ smartapi/commands/make_service.py
 smartapi/utils/naming.py
 smartapi/utils/project.py
 smartapi/utils/templates.py
+smartapi_cli.egg-info/PKG-INFO
+smartapi_cli.egg-info/SOURCES.txt
+smartapi_cli.egg-info/dependency_links.txt
+smartapi_cli.egg-info/entry_points.txt
+smartapi_cli.egg-info/requires.txt
+smartapi_cli.egg-info/top_level.txt
