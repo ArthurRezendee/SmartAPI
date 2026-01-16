@@ -54,8 +54,14 @@ smartapi/utils/naming.py
 smartapi/utils/project.py
 smartapi/utils/templates.py
 smartapi_cli.egg-info/PKG-INFO
+smartapi_cli.egg-info/PKG-INFO 2
+smartapi_cli.egg-info/SOURCES 2.txt
 smartapi_cli.egg-info/SOURCES.txt
+smartapi_cli.egg-info/dependency_links 2.txt
 smartapi_cli.egg-info/dependency_links.txt
+smartapi_cli.egg-info/entry_points 2.txt
 smartapi_cli.egg-info/entry_points.txt
+smartapi_cli.egg-info/requires 2.txt
 smartapi_cli.egg-info/requires.txt
+smartapi_cli.egg-info/top_level 2.txt
 smartapi_cli.egg-info/top_level.txt
