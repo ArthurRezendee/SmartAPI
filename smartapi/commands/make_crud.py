@@ -17,8 +17,6 @@ def make_crud(
     entity: str,
     from_model: bool = typer.Option(False, "--from-model"),
     controller: str = typer.Option(None, "--controller"),
-    readonly: bool = typer.Option(False, "--readonly"),
-    no_delete: bool = typer.Option(False, "--no-delete"),
 ):
     module_snake = to_snake(module)
     entity_snake = to_snake(entity)
@@ -92,8 +90,6 @@ def make_crud(
     # CONTROLLER METHODS (append)
     # -------------------------
     with open(controller_path, "a", encoding="utf-8") as f:
-        from smartapi.utils.templates import render_template as _rt  # só pra gerar string
-
         tmp = Path("/tmp/_controller_methods.py")
 
         render_template(
@@ -105,18 +101,8 @@ def make_crud(
         )
         f.write(tmp.read_text())
 
-        if not readonly:
-            render_template(
-                template="crud/controller.methods.delete.py.tpl",
-                target=tmp,
-                context={
-                    "entity_snake": entity_snake,
-                },
-            )
-            f.write(tmp.read_text())
-
     # -------------------------
-    # ROUTER (append)
+    # ROUTER ROUTES (append)
     # -------------------------
     with open(router_path, "a", encoding="utf-8") as f:
         tmp = Path("/tmp/_router_routes.py")
@@ -130,15 +116,5 @@ def make_crud(
             },
         )
         f.write(tmp.read_text())
-
-        if not readonly and not no_delete:
-            render_template(
-                template="crud/router.routes.delete.py.tpl",
-                target=tmp,
-                context={
-                    "entity_snake": entity_snake,
-                },
-            )
-            f.write(tmp.read_text())
 
     typer.echo(f"✅ CRUD '{entity}' criado no módulo '{module}'")
