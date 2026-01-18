@@ -21,7 +21,7 @@ Ele gera uma API completa **do zero**, já arquitetada, padronizada e pronta par
 ## 📦 Instalação
 
 ```bash
-pip install smartapi
+pip install smartapi-cli
 ```
 
 ---
