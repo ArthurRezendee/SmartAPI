@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: smartapi-cli
-Version: 0.1.3
+Version: 0.1.4
 Summary: Opinionated FastAPI CLI for scalable Python APIs
 Author-email: Arthur Rezende <arezendealmeida@gmail.com>
 License: MIT License
@@ -37,7 +37,7 @@ Ele gera uma API completa **do zero**, já arquitetada, padronizada e pronta par
 ## 📦 Instalação
 
 ```bash
-pip install smartapi
+pip install smartapi-cli
 ```
 
 ---
